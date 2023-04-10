@@ -1,24 +1,42 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import mockData from './MOCK_DATA.json' assert {type: 'json'}
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+let table = document.querySelector('#contacts')
 
-setupCounter(document.querySelector('#counter'))
+let updateTable = data => {
+    let headers = `
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Street address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>ZIP code</th>
+            <th>Phone number</th>
+            <th>Email</th>
+        </tr>
+    `
+    let contactToRow = x => `
+        <tr>
+            <td>${x.first_name}</td>
+            <td>${x.last_name}</td>
+            <td>${x.street_address}</td>
+            <td>${x.city}</td>
+            <td>${x.state}</td>
+            <td>${x.zip_code}</td>
+            <td>${x.phone_number}</td>
+            <td>${x.email}</td>
+        </tr>
+    `
+    table.innerHTML = headers + data.map(contactToRow).join('')
+}
+
+updateTable(mockData.slice(0, 20))
+
+let filterText = document.querySelector('#filter')
+filterText.oninput = e => {
+    updateTable(
+        mockData
+            .filter(x => x.first_name.toLowerCase().includes(e.target.value.toLowerCase()))
+            .slice(0, 20)
+    )
+}
