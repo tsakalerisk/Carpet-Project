@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carpet Project</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+
+<body>
+    <div class="app">
+        <a href="index.html">
+            <h1>
+                Carpet Project
+                <img height="60" class="logo" src="logo.svg">
+            </h1>
+        </a>
+        <form action="" method="post">
+            <div>
+                <label for="first_name">First name</label>
+                <input type="text" name="first_name" id="first_name" required>
+            </div>
+            <div>
+                <label for="last_name">Last name</label>
+                <input type="text" name="last_name" id="last_name" required>
+            </div>
+            <div>
+                <label for="street_address">Address</label>
+                <input type="text" name="street_address" id="street_address" required>
+            </div>
+            <div>
+                <label for="city">City</label>
+                <input type="text" name="city" id="city" required>
+            </div>
+            <div>
+                <label for="state">State</label>
+                <input type="text" name="state" id="state" required>
+            </div>
+            <div>
+                <label for="zip_code">ZIP code</label>
+                <input type="text" name="zip_code" id="zip_code" required>
+            </div>
+            <div>
+                <label for="phone_number">Phone number</label>
+                <input type="tel" name="phone_number" id="phone_number" pattern="[0-9]{3}-?[0-9]{3}-?[0-9]{4}" required>
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <input type="submit" value="Create new contact">
+        </form>
+    </div>
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
