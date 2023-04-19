@@ -12,10 +12,10 @@
 
 <body>
   <div class="app">
-    <a href="index.html">
+    <a class="logo" href="index.html">
       <h1>
         Carpet Project
-        <img height="60" class="logo" src="logo.svg">
+        <img height="60" src="logo.svg">
       </h1>
     </a>
     <div class="controls">
@@ -41,9 +41,14 @@
       <tbody id="contacts"></tbody>
     </table>
     <div class="update-form">
-      <button class="close-button" onclick="hideUpdateForm()">
-        <span class="material-symbols-outlined">close</span>
-      </button>
+      <div class="edit-header-wrapper">
+        <button class="close-button" onclick="hideUpdateForm()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+        <h2 class="edit-header">
+          Edit contact
+        </h2>
+      </div>
       <form action="" method="post">
         <div>
           <label for="first_name">First name</label>

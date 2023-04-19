@@ -32,7 +32,6 @@ body {
 h1 {
   font-size: 2.8em;
   line-height: 1.1;
-  margin-bottom: 2em;
   text-align: center;
   color: initial;
 }
@@ -108,6 +107,10 @@ button:focus-visible,
   .app {
     width: 60%;
   }
+}
+
+.logo {
+  margin-bottom: 5em;
 }
 
 .controls {
@@ -226,6 +229,7 @@ tbody>tr:hover .contact-options {
   right: 0;
   transform: translateX(100%);
   transition: all .25s;
+  overflow-y: auto;
 }
 
 .update-form input {
@@ -237,12 +241,25 @@ tbody>tr:hover .contact-options {
   transform: translateX(0);
 }
 
+
+.edit-header-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: .5em;
+}
+
 .close-button {
   all: unset;
+  display: inline;
   cursor: pointer;
-  margin-left: auto;
 }
 
 .close-button>span {
   font-size: 3em;
+}
+
+.edit-header {
+  display: inline;
+  margin: 0 0 0 .4em;
+  font-size: 2.2em;
 }
