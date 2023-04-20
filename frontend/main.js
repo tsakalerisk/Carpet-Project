@@ -74,11 +74,12 @@ let updateTable = data => {
 let updatePages = data => {
     let paging = document.querySelector('.paging')
     let mapToButton = x => `
-        <button class="${x === current_page ? 'current' : ''}" onclick="setPage(${x})" ${x === current_page ? 'disabled' : ''}>
-            ${x}
-        </button>
+    <button class="${x === current_page ? 'current' : ''}" onclick="setPage(${x})" ${x === current_page ? 'disabled' : ''}>
+    ${x}
+    </button>
     `
-    paging.innerHTML = Array.from({ length: Math.ceil(data.length / CONTACTS_PER_PAGE) }, (_, i) => i + 1)
+    let pages = Array.from({ length: Math.ceil(data.length / CONTACTS_PER_PAGE) }, (_, i) => i + 1)
+    paging.innerHTML = pages
         .filter(x => x === 1 || x === pages.length || Math.abs(current_page - x) < 2)
         .flatMap((x, i, filtered_pages) => filtered_pages[i + 1] > x + 1 ? [mapToButton(x), '. . .'] : [mapToButton(x)])
         .join('')
