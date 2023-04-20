@@ -1,13 +1,42 @@
 const CONTACTS_PER_PAGE = 20
+const FieldNames = {
+    first_name: "First name",
+    last_name: "Last name",
+    street_address: "Street address",
+    city: "City",
+    state: "State",
+    zip_code: "ZIP code",
+    phone_number: "Phone number",
+    email: "Email",
+}
 
 let data, current_page = 1
-let filter = new URLSearchParams(document.location.search).get("filter")
-document.querySelector('.filter').value = filter
+let filters = Object.fromEntries(new URLSearchParams(document.location.search))
+
+let loadFilters = () => {
+    let container = document.querySelector('.filters')
+    container.innerHTML = Object.keys(filters)
+        .map(key => `
+            <div class="filter">
+                ${FieldNames[key]}: ${filters[key]}
+                <span class="material-symbols-outlined" onclick="removeFilter('${key}')">
+                    close
+                </span>
+            </div>
+        `)
+        .join('')
+}
+
+loadFilters()
 
 let getData = async () => {
     let response = await fetch('./MOCK_DATA.json')
     data = (await response.json())
-        .filter(x => !filter || x.first_name.toLowerCase().startsWith(filter.toLowerCase()))
+        .filter(
+            contact => Object.keys(filters).every(
+                key => contact[key].toLowerCase().startsWith(filters[key].toLowerCase())
+            )
+        )
     updateTable(data)
     updatePages(data)
 }
@@ -44,13 +73,12 @@ let updateTable = data => {
 
 let updatePages = data => {
     let paging = document.querySelector('.paging')
-    let pages = Array.from({ length: Math.ceil(data.length / CONTACTS_PER_PAGE) }, (_, i) => i + 1)
     let mapToButton = x => `
         <button class="${x === current_page ? 'current' : ''}" onclick="setPage(${x})" ${x === current_page ? 'disabled' : ''}>
             ${x}
         </button>
     `
-    paging.innerHTML = pages
+    paging.innerHTML = Array.from({ length: Math.ceil(data.length / CONTACTS_PER_PAGE) }, (_, i) => i + 1)
         .filter(x => x === 1 || x === pages.length || Math.abs(current_page - x) < 2)
         .flatMap((x, i, filtered_pages) => filtered_pages[i + 1] > x + 1 ? [mapToButton(x), '. . .'] : [mapToButton(x)])
         .join('')
@@ -83,3 +111,17 @@ window.addEventListener('click', e => {
         hideUpdateForm()
     }
 })
+
+let filterForm = document.querySelector('.filter-form')
+filterForm.onsubmit = e => {
+    e.preventDefault()
+    let newFilters = new URLSearchParams(document.location.search)
+    newFilters.append(e.target.filter_key.value, e.target.filter_value.value)
+    window.location = "./?" + newFilters.toString()
+}
+
+let removeFilter = filter => {
+    let newFilters = new URLSearchParams(document.location.search)
+    newFilters.delete(filter)
+    window.location = "./?" + newFilters.toString()
+}
