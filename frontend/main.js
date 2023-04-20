@@ -1,18 +1,25 @@
 const CONTACTS_PER_PAGE = 20
 
-let data, page = 0
+let data, current_page = 1
+let filter = new URLSearchParams(document.location.search).get("filter")
+document.querySelector('.filter').value = filter
 
 let getData = async () => {
     let response = await fetch('./MOCK_DATA.json')
-    data = await response.json()
-    updateTable(data.sort((a, b) => a.first_name > b.first_name ? 1 : -1).slice(0, 20))
+    data = (await response.json())
+        .filter(x => !filter || x.first_name.toLowerCase().startsWith(filter.toLowerCase()))
+    updateTable(data)
+    updatePages(data)
 }
 
 getData()
 
 let updateTable = data => {
     let table = document.querySelector('#contacts')
-    table.innerHTML = data.map(x => `
+    table.innerHTML = data
+        .sort((a, b) => a.first_name > b.first_name ? 1 : -1)
+        .slice((current_page - 1) * CONTACTS_PER_PAGE, current_page * CONTACTS_PER_PAGE)
+        .map(x => `
         <tr>
             <td>${x.first_name}</td>
             <td>${x.last_name}</td>
@@ -31,16 +38,29 @@ let updateTable = data => {
                 </button>
             </td>
         </tr>
-    `).join('')
+    `)
+        .join('')
 }
 
-let filterText = document.querySelector('.filter')
-filterText.oninput = e => {
-    updateTable(
-        data
-            .filter(x => x.first_name.toLowerCase().includes(e.target.value.toLowerCase()))
-            .slice(0, 20)
-    )
+let updatePages = data => {
+    let paging = document.querySelector('.paging')
+    let pages = Array.from({ length: Math.ceil(data.length / CONTACTS_PER_PAGE) }, (_, i) => i + 1)
+    let mapToButton = x => `
+        <button class="${x === current_page ? 'current' : ''}" onclick="setPage(${x})" ${x === current_page ? 'disabled' : ''}>
+            ${x}
+        </button>
+    `
+    paging.innerHTML = pages
+        .filter(x => x === 1 || x === pages.length || Math.abs(current_page - x) < 2)
+        .flatMap((x, i, filtered_pages) => filtered_pages[i + 1] > x + 1 ? [mapToButton(x), '. . .'] : [mapToButton(x)])
+        .join('')
+}
+
+let setPage = page => {
+    current_page = page
+    updateTable(data)
+    updatePages(data)
+    window.scrollTo(0, 0);
 }
 
 let showUpdateForm = id => {

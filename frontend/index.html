@@ -19,7 +19,10 @@
       </h1>
     </a>
     <div class="controls">
-      <input class="filter" type="text" placeholder="Type here to filter...">
+      <form action="." class="filter-form">
+        <input class="filter" type="search" placeholder="Type here to filter..." name="filter">
+        <input type="submit" value="Search">
+      </form>
       <a id="new_contact" class="button" href="new-contact.html">
         <span class="material-symbols-outlined">edit_square</span>
         New contact
@@ -49,7 +52,7 @@
           Edit contact
         </h2>
       </div>
-      <form action="" method="post">
+      <form action="" method="post" class="contact-form">
         <div>
           <label for="first_name">First name</label>
           <input type="text" name="first_name" id="first_name" required>
@@ -85,6 +88,7 @@
         <input type="submit" value="Update contact">
       </form>
     </div>
+    <div class="paging"></div>
   </div>
   <script src="main.js"></script>
 </body>

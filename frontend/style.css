@@ -124,7 +124,13 @@ button:focus-visible,
   font-size: 1.4rem;
 }
 
-.filter {
+.filter-form {
+  flex: 1;
+  display: flex;
+}
+
+.filter-form>input[type="search"] {
+  box-sizing: border-box;
   flex: 1;
 }
 
@@ -172,23 +178,23 @@ td:nth-child(8) {
   width: max-content;
 }
 
-form {
+.contact-form {
   display: grid;
   font-size: 1.4em;
   gap: 1.6em;
 }
 
 @media (min-width: 700px) {
-  :not(.update-form)>form {
+  :not(.update-form)>.contact-form {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-form>*:last-child {
+.contact-form>*:last-child {
   grid-column: 1 / -1;
 }
 
-form>div>* {
+.contact-form>div>* {
   display: block;
 }
 
@@ -268,4 +274,23 @@ tbody>tr:hover .contact-options {
   display: inline;
   margin: 0 0 0 .4em;
   font-size: 2.2em;
+}
+
+.paging {
+  display: flex;
+  gap: .8em;
+  align-items: center;
+  margin-block: 2em;
+}
+
+.current {
+  cursor: auto;
+  background-color: #646cff;
+}
+
+@media (prefers-color-scheme: light) {
+  .current {
+    cursor: auto;
+    background-color: #747bff;
+  }
 }
