@@ -100,29 +100,19 @@ button:focus-visible,
   margin-bottom: 5em;
 }
 
-.controls {
+.filter-container {
   box-sizing: border-box;
-  padding-inline: 5em;
+  width: 55%;
+  max-width: 1000px;
   margin-bottom: 2em;
-  padding-inline: 1em;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1em;
-  align-items: flex-start;
   font-size: 1.4rem;
 }
 
-.controls * {
+.filter-container * {
   min-width: max-content;
 }
 
-.filter-container {
-  flex: 1;
-}
-
 .filter-form {
-  flex: 1;
   border-radius: 8px;
   display: flex;
 }

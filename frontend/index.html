@@ -18,30 +18,28 @@
         <img height="60" src="logo.svg">
       </h1>
     </a>
-    <div class="controls">
-      <div class="filter-container">
-        <form action="." class="filter-form">
-          <select name="filter_key" required>
-            <option value="" disabled selected>Choose one</option>
-            <option value="first_name">First name</option>
-            <option value="last_name">Last name</option>
-            <option value="street_address">Street address</option>
-            <option value="city">City</option>
-            <option value="state">State</option>
-            <option value="zip_code">ZIP code</option>
-            <option value="phone_number">Phone number<optionh>
-            <option value="email">Email</option>
-          </select>
-          <input class="filter-input" type="search" placeholder="Type here to filter..." name="filter_value" required>
-          <button type="submit" class="icon-container">
-            <span class="material-symbols-outlined">
-              add_circle
-            </span>
-            Add filter
-          </button>
-        </form>
-        <div class="filters"></div>
-      </div>
+    <div class="filter-container">
+      <form action="." class="filter-form">
+        <select name="filter_key" required>
+          <option value="" disabled selected>Choose one</option>
+          <option value="first_name">First name</option>
+          <option value="last_name">Last name</option>
+          <option value="street_address">Street address</option>
+          <option value="city">City</option>
+          <option value="state">State</option>
+          <option value="zip_code">ZIP code</option>
+          <option value="phone_number">Phone number<optionh>
+          <option value="email">Email</option>
+        </select>
+        <input class="filter-input" type="search" placeholder="Type here to filter..." name="filter_value" required>
+        <button type="submit" class="icon-container">
+          <span class="material-symbols-outlined">
+            add_circle
+          </span>
+          Add filter
+        </button>
+      </form>
+      <div class="filters"></div>
     </div>
     <table>
       <thead>
