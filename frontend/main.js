@@ -117,7 +117,7 @@ let filterForm = document.querySelector('.filter-form')
 filterForm.onsubmit = e => {
     e.preventDefault()
     let newFilters = new URLSearchParams(document.location.search)
-    newFilters.append(e.target.filter_key.value, e.target.filter_value.value)
+    newFilters.set(e.target.filter_key.value, e.target.filter_value.value)
     window.location = "./?" + newFilters.toString()
 }
 
