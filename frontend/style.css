@@ -169,7 +169,15 @@ button:focus-visible,
 }
 
 #new_contact {
+  position: fixed;
+  font-size: 1.5em;
+  bottom: 1.4em;
+  right: 1.4em;
   padding: 0.5em 1em;
+}
+
+#new_contact>* {
+  font-size: 1.5em;
 }
 
 table {
@@ -219,7 +227,7 @@ td:nth-child(8) {
 }
 
 @media (min-width: 700px) {
-  :not(.update-form)>.contact-form {
+  .contact-form {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -256,55 +264,54 @@ tbody>tr:hover .contact-options {
   color: firebrick;
 }
 
-.update-form {
+.contact-form-container {
   box-sizing: border-box;
-  height: 100%;
-  width: 25%;
   min-width: max-content;
-  font-size: .8em;
-  background-color: #1c1d38aa;
-  backdrop-filter: blur(4px);
-  padding: 2em;
+  font-size: 1em;
+  background-color: #1c1d3888;
+  backdrop-filter: blur(8px);
+  padding: 3em;
+  border-radius: 1em;
   position: fixed;
-  right: 0;
-  transform: translateX(100%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% + 20px));
+  visibility: hidden;
+  opacity: 0;
   transition: all .25s;
   overflow-y: auto;
 }
 
 @media (prefers-color-scheme: light) {
-  .update-form {
+  .contact-form-container {
     background-color: #a2a2b1aa;
   }
 }
 
-.update-form input {
+.contact-form-container input {
   box-sizing: border-box;
   width: 100%;
 }
 
-.update-form.open {
-  transform: translateX(0);
+.contact-form-container.open {
+  visibility: visible;
+  opacity: 100%;
+  transform: translate(-50%, -50%);
 }
 
 
-.edit-header-wrapper {
+.contact-header-wrapper {
   display: flex;
   align-items: center;
-  margin-bottom: .5em;
+  margin-bottom: 2em;
 }
 
-.close-button {
-  all: unset;
-  display: inline;
+#close-button {
   cursor: pointer;
-}
-
-.close-button>span {
   font-size: 3em;
 }
 
-.edit-header {
+.contact-header {
   display: inline;
   margin: 0 0 0 .4em;
   font-size: 2.2em;

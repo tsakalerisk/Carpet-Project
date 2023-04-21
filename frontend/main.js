@@ -59,7 +59,7 @@ let updateTable = data => {
             <td>${x.phone_number}</td>
             <td>${x.email}</td>
             <td class="contact-options">
-                <button class="edit" onclick="showUpdateForm(${x.id})">
+                <button class="edit opens-form" onclick="showUpdateForm(${x.id})">
                     <span class="material-symbols-outlined">edit_square</span>
                 </button>
                 <button class="delete" onclick="console.log('Deleted id=${x.id}. Replace this with delete request.')">
@@ -92,23 +92,30 @@ let setPage = page => {
     window.scrollTo(0, 0);
 }
 
+let showNewForm = () => {
+    let form = document.querySelector('.contact-form-container')
+    form.querySelector('.contact-form').reset()
+    document.querySelector('.contact-header').innerHTML = 'New Contact'
+    form.classList.add('open')
+}
+
 let showUpdateForm = id => {
-    let form = document.querySelector('.update-form')
+    let form = document.querySelector('.contact-form-container')
     let contact = data.find(x => x.id === id)
     //fill out all fields in the form with the contact's data
     Object.keys(contact).forEach(key => {
         form.querySelector(`#${key}`) &&
             (form.querySelector(`#${key}`).value = contact[key])
     })
-
+    document.querySelector('.contact-header').innerHTML = 'Edit Contact'
     form.classList.add('open')
 }
 
-let hideUpdateForm = () => document.querySelector('.update-form').classList.remove('open')
+let hideUpdateForm = () => document.querySelector('.contact-form-container').classList.remove('open')
 
 window.addEventListener('click', e => {
-    let form = document.querySelector('.update-form')
-    if (!form.contains(e.target) && !e.target.closest('.edit') && form.classList.contains('open')) {
+    let form = document.querySelector('.contact-form-container')
+    if (!form.contains(e.target) && !e.target.closest('.opens-form') && form.classList.contains('open')) {
         hideUpdateForm()
     }
 })

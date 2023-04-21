@@ -42,10 +42,6 @@
         </form>
         <div class="filters"></div>
       </div>
-      <a id="new_contact" class="button icon-container" href="new-contact.html">
-        <span class="material-symbols-outlined">edit_square</span>
-        New contact
-      </a>
     </div>
     <table>
       <thead>
@@ -62,14 +58,16 @@
       </thead>
       <tbody id="contacts"></tbody>
     </table>
-    <div class="update-form">
-      <div class="edit-header-wrapper">
-        <button class="close-button" onclick="hideUpdateForm()">
-          <span class="material-symbols-outlined">close</span>
-        </button>
-        <h2 class="edit-header">
-          Edit contact
-        </h2>
+    <button id="new_contact" class="button icon-container opens-form" onclick="showNewForm()">
+      <span class="material-symbols-outlined">add</span>
+      New contact
+    </button>
+    <div class="contact-form-container">
+      <div class="contact-header-wrapper icon-container">
+        <span id="close-button" class="material-symbols-outlined" onclick="hideUpdateForm()">
+          close
+        </span>
+        <h2 class="contact-header"></h2>
       </div>
       <form action="" method="post" class="contact-form">
         <div>
