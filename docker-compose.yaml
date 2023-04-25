@@ -10,4 +10,10 @@ services:
   #   depends_on:
   #     - backend
   # backend:
-  # db:
+  db:
+    image: carpet-db:latest
+    build:
+      context: ./db
+    container_name: db
+    ports:
+      - "3306:3306" #remove later, only backend will have access
