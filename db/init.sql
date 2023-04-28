@@ -3,14 +3,14 @@ CREATE TABLE Contacts(
     first_name VARCHAR(256),
     last_name VARCHAR(256),
     street_address VARCHAR(256),
-    city VARCHAR(256),
-    state VARCHAR(256),
+    city_id INT,
     zip_code VARCHAR(256),
     phone_number VARCHAR(256),
     email VARCHAR(256)
+    # city_id must be foreign key
 );
 
-LOAD DATA INFILE  '/var/lib/mysql-files/mock_data.csv'
+LOAD DATA INFILE  '/var/lib/mysql-files/contacts.csv'
 INTO TABLE Contacts
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
