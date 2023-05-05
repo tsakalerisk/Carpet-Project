@@ -1,0 +1,145 @@
+city_id,city_name,state_id
+1,Athens,1
+2,Thessaloniki,3
+3,Patras,12
+4,Piraeus,1
+5,Larissa,11
+6,Heraklion,4
+7,Peristeri,1
+8,Kallithea,1
+9,Acharnes,1
+10,Kalamaria,3
+11,Nikaia,1
+12,Glyfada,1
+13,Volos,11
+14,Ilio,1
+15,Ilioupoli,1
+16,Keratsini,1
+17,Evosmos,3
+18,Chalandri,1
+19,Nea Smyrni,1
+20,Marousi,1
+21,Agios Dimitrios,1
+22,Zografou,1
+23,Egaleo,1
+24,Nea Ionia,1
+25,Ioannina,6
+26,Palaio Faliro,1
+27,Korydallos,1
+28,Trikala,11
+29,Vyronas,1
+30,Agia Paraskevi,1
+31,Galatsi,1
+32,Agrinio,12
+33,Chalcis,2
+34,Petroupoli,1
+35,Serres,3
+36,Alexandroupoli,5
+37,Xanthi,5
+38,Katerini,3
+39,Kalamata,9
+40,Kavala,5
+41,Chania,4
+42,Lamia,2
+43,Komotini,5
+44,Irakleio,1
+45,Rhodes,10
+46,Kifissia,1
+47,Stavroupoli,3
+48,Chaidari,1
+49,Drama,5
+50,Veria,3
+51,Alimos,1
+52,Kozani,13
+53,Polichni,3
+54,Karditsa,11
+55,Sykies,3
+56,Ampelokipoi,3
+57,Pylaia,3
+58,Agioi Anargyroi,1
+59,Argyroupoli,1
+60,Ano Liosia,1
+61,Nea Ionia,11
+62,Rethymno,4
+63,Ptomlemaida,13
+64,Tripoli,9
+65,Cholargos,1
+66,Vrilissia,1
+67,Aspropyrgos,1
+68,Corinth,9
+69,Gerakas,1
+70,Metamorfosi,1
+71,Giannitsa,3
+72,Voula,1
+73,Kamatero,1
+74,Mytilene,8
+75,Neapoli,3
+76,Eleftherio-Kordelio,3
+77,Chios,8
+78,Agia Varvara,1
+79,Kaisariani,1
+80,Nea Filadelfia,1
+81,Moschato,1
+82,Perama,1
+83,Salamina,1
+84,Eleusis,1
+85,Corfu,7
+86,Pyrgos,12
+87,Megara,1
+88,Kilkis,3
+89,Dafni,1
+90,Thebes,2
+91,Melissia,1
+92,Argos,9
+93,Arta,6
+94,Artemida,1
+95,Livadeia,2
+96,Pefki,1
+97,Oraikastro,3
+98,Aigio,12
+99,Kos,10
+100,Koropi,1
+101,Preveza,6
+102,Naousa,3
+103,Orestiada,5
+104,Peraia,3
+105,Edessa,3
+106,Florina,13
+107,Panorama,3
+108,Nea Erythraia,1
+109,Elliniko,1
+110,Amaliada,12
+111,Pallini,1
+112,Sparta,9
+113,Agios Ioannis Rentis,1
+114,Thermi,3
+115,Vari,1
+116,Nea Makri,1
+117,Tavros,1
+118,Alexandreia,3
+119,Menemeni,3
+120,Paiania,1
+121,Kalyvia Thorikou,1
+122,Nafplio,9
+123,Drapetsona,1
+124,Efkarpia,3
+125,Papagou,1
+126,Nafpaktos,12
+127,Kastoria,13
+128,Grevena,13
+129,Pefka,3
+130,Nea Alikarnassos,4
+131,Missolonghi,12
+132,Gazi,4
+133,Ierapetra,4
+134,Kalymnos,10
+135,Rafina,1
+136,Loutraki,9
+137,Agios Nikolaos,4
+138,Ermoupoli,10
+139,Ialysos,10
+140,Mandra,1
+141,Tyvarnos,11
+142,Glyka Nera,1
+143,Ymittos,1
+144,Neo Psychiko,1
