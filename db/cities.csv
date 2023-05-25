@@ -1,79 +1,145 @@
-id,name,state_id,zip_pattern
-1,Αθήνα,2,1[0-7]\d\d\d
-2,Θεσσαλονίκη,9,5[4-6]\d\d\d
-3,Πάτρα,4,26\d\d\d
-4,Ηράκλειο,10,71\d\d\d
-5,Λάρισα,7,41\d\d\d
-6,Βόλος,7,38\d\d\d
-7,Ιωάννινα,6,45\d\d\d
-8,Τρίκαλα,7,42100
-9,Χαλκίδα,13,34100
-10,Σέρρες,9,621\d\d
-11,Αλεξανδρούπολη,1,68100
-12,Ξάνθη,1,67100
-13,Κατερίνη,9,60100
-14,Αγρίνιο,4,30100
-15,Καλαμάτα,12,24100
-16,Καβάλα,1,65\d\d\d
-17,Χανιά,10,731\d\d
-18,Λαμία,13,35100
-19,Κομοτηνή,1,69100
-20,Ρόδος,11,85100
-21,Δράμα,1,66100
-22,Βέροια,9,59100
-23,Κοζάνη,5,50100
-24,Καρδίτσα,7,43100
-25,Ρέθυμνο,10,74100
-26,Πτολεμαΐδα,5,50200
-27,Τρίπολη,12,22100
-28,Κόρινθος,12,20100
-29,Γέρακας,2,15344
-30,Γιαννιτσά,9,58100
-31,Μυτιλήνη,3,81100
-32,Χίος,3,82100
-33,Σαλαμίνα,2,18900
-34,Ελευσίνα,2,19200
-35,Κέρκυρα,8,49100
-36,Πύργος,4,27100
-37,Μέγαρα,2,19100
-38,Κιλκίς,9,61100
-39,Θήβα,13,32200
-40,Άργος,12,21200
-41,Άρτα,6,47100
-42,Άρτεμη,2,19016
-43,Λιβαδειά,13,32100
-44,Ωραιόκαστρο,9,57013
-45,Αίγιο,4,25100
-46,Κως,11,85300
-47,Κορωπί,2,19400
-48,Πρέβεζα,6,48100
-49,Σπάρτη,12,23100
-50,Νάουσα,9,59200
-51,Ορεστιάδα,1,68200
-52,Περαία,9,57019
-53,Έδεσσα,9,58200
-54,Φλώρινα,5,53100
-55,Αμαλιάδα,4,27200
-56,Παλλήνη,2,15351
-57,Θέρμη,9,57001
-58,Βάρη,2,16672
-59,Νέα Μάκρη,2,19005
-60,Αλεξάνδρεια,9,59300
-61,Παιανία,2,19002
-62,Καλύβια Θορικού,2,19010
-63,Ναύπλιο,12,21100
-64,Ναύπακτος,4,30300
-65,Καστοριά,5,52100
-66,Γρεβενά,5,51100
-67,Μεσολόγγι,4,30200
-68,Γάζι,10,71414
-69,Ιεράπετρα,10,72200
-70,Κάλυμνος,11,85200
-71,Ραφήνα,2,19009
-72,Λουτράκι,12,20300
-73,Άγιος Νικόλαος,10,72100
-74,Ερμούπολη,11,84100
-75,Ιαλυσός,11,85101
-76,Μάνδρα,2,19600
-77,Τύρναβος,7,40100
-78,Γλυκά Νερά,2,15354
+city_id,city_name,state_id
+1,Athens,1
+2,Thessaloniki,3
+3,Patras,12
+4,Piraeus,1
+5,Larissa,11
+6,Heraklion,4
+7,Peristeri,1
+8,Kallithea,1
+9,Acharnes,1
+10,Kalamaria,3
+11,Nikaia,1
+12,Glyfada,1
+13,Volos,11
+14,Ilio,1
+15,Ilioupoli,1
+16,Keratsini,1
+17,Evosmos,3
+18,Chalandri,1
+19,Nea Smyrni,1
+20,Marousi,1
+21,Agios Dimitrios,1
+22,Zografou,1
+23,Egaleo,1
+24,Nea Ionia,1
+25,Ioannina,6
+26,Palaio Faliro,1
+27,Korydallos,1
+28,Trikala,11
+29,Vyronas,1
+30,Agia Paraskevi,1
+31,Galatsi,1
+32,Agrinio,12
+33,Chalcis,2
+34,Petroupoli,1
+35,Serres,3
+36,Alexandroupoli,5
+37,Xanthi,5
+38,Katerini,3
+39,Kalamata,9
+40,Kavala,5
+41,Chania,4
+42,Lamia,2
+43,Komotini,5
+44,Irakleio,1
+45,Rhodes,10
+46,Kifissia,1
+47,Stavroupoli,3
+48,Chaidari,1
+49,Drama,5
+50,Veria,3
+51,Alimos,1
+52,Kozani,13
+53,Polichni,3
+54,Karditsa,11
+55,Sykies,3
+56,Ampelokipoi,3
+57,Pylaia,3
+58,Agioi Anargyroi,1
+59,Argyroupoli,1
+60,Ano Liosia,1
+61,Nea Ionia,11
+62,Rethymno,4
+63,Ptomlemaida,13
+64,Tripoli,9
+65,Cholargos,1
+66,Vrilissia,1
+67,Aspropyrgos,1
+68,Corinth,9
+69,Gerakas,1
+70,Metamorfosi,1
+71,Giannitsa,3
+72,Voula,1
+73,Kamatero,1
+74,Mytilene,8
+75,Neapoli,3
+76,Eleftherio-Kordelio,3
+77,Chios,8
+78,Agia Varvara,1
+79,Kaisariani,1
+80,Nea Filadelfia,1
+81,Moschato,1
+82,Perama,1
+83,Salamina,1
+84,Eleusis,1
+85,Corfu,7
+86,Pyrgos,12
+87,Megara,1
+88,Kilkis,3
+89,Dafni,1
+90,Thebes,2
+91,Melissia,1
+92,Argos,9
+93,Arta,6
+94,Artemida,1
+95,Livadeia,2
+96,Pefki,1
+97,Oraikastro,3
+98,Aigio,12
+99,Kos,10
+100,Koropi,1
+101,Preveza,6
+102,Naousa,3
+103,Orestiada,5
+104,Peraia,3
+105,Edessa,3
+106,Florina,13
+107,Panorama,3
+108,Nea Erythraia,1
+109,Elliniko,1
+110,Amaliada,12
+111,Pallini,1
+112,Sparta,9
+113,Agios Ioannis Rentis,1
+114,Thermi,3
+115,Vari,1
+116,Nea Makri,1
+117,Tavros,1
+118,Alexandreia,3
+119,Menemeni,3
+120,Paiania,1
+121,Kalyvia Thorikou,1
+122,Nafplio,9
+123,Drapetsona,1
+124,Efkarpia,3
+125,Papagou,1
+126,Nafpaktos,12
+127,Kastoria,13
+128,Grevena,13
+129,Pefka,3
+130,Nea Alikarnassos,4
+131,Missolonghi,12
+132,Gazi,4
+133,Ierapetra,4
+134,Kalymnos,10
+135,Rafina,1
+136,Loutraki,9
+137,Agios Nikolaos,4
+138,Ermoupoli,10
+139,Ialysos,10
+140,Mandra,1
+141,Tyvarnos,11
+142,Glyka Nera,1
+143,Ymittos,1
+144,Neo Psychiko,1
