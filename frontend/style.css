@@ -269,11 +269,28 @@ tbody>tr:hover .contact-options {
 .contact-form-container {
   box-sizing: border-box;
   min-width: max-content;
-  font-size: 1em;
   background-color: var(--secondary-background);
   padding: 3em;
   border-radius: 1em;
   overflow-y: auto;
+}
+
+@media(max-height: 900px) {
+  .contact-form-container {
+    font-size: .9rem;
+  }
+}
+
+@media(max-height: 800px) {
+  .contact-form-container {
+    font-size: .8rem;
+  }
+}
+
+@media(max-height: 700px) {
+  .contact-form-container {
+    font-size: .7rem;
+  }
 }
 
 .contact-form-container[open] {
