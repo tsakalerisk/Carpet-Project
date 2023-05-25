@@ -1,11 +1,19 @@
 :root {
+  --primary-background: #242424;
+  --primary-foreground: rgba(255, 255, 255, 0.87);
+  --primary-accent: #646cff;
+
+  --secondary-background: #282828;
+  --secondary-accent: #535bf2;
+  --secondary-accent-half: #535bf288;
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--primary-foreground);
+  background-color: var(--primary-background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,14 +23,23 @@
   overflow-x: hidden;
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --primary-background: white;
+    --primary-foreground: #213547;
+
+    --secondary-background: #e0e0e0;
+  }
+}
+
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--primary-accent);
   text-decoration: inherit;
 }
 
 a:hover {
-  color: #535bf2;
+  color: var(--secondary-accent);
 }
 
 body {
@@ -58,7 +75,7 @@ select, input, button, .button {
 
 select:hover, input:hover, button:hover, .button:hover {
   color: inherit;
-  border-color: #646cff;
+  border-color: var(--primary-accent);
 }
 
 button:focus,
@@ -69,11 +86,6 @@ button:focus-visible,
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
   a:hover {
     color: #747bff;
   }
@@ -144,7 +156,7 @@ button:focus-visible,
 }
 
 .filter {
-  background-color: #535bf288;
+  background-color: var(--secondary-accent-half);
   font-size: .8em;
   padding: .2em .8em;
   border-radius: 20px;
@@ -196,7 +208,7 @@ thead {
 }
 
 tbody>tr:hover {
-  background-color: #535bf288;
+  background-color: var(--secondary-accent-half);
 }
 
 td:first-child {
@@ -247,7 +259,7 @@ tbody>tr:hover .contact-options {
 }
 
 .edit:hover {
-  color: #535bf2;
+  color: var(--secondary-accent);
 }
 
 .delete:hover {
@@ -258,37 +270,36 @@ tbody>tr:hover .contact-options {
   box-sizing: border-box;
   min-width: max-content;
   font-size: 1em;
-  background-color: #1c1d3888;
-  backdrop-filter: blur(8px);
+  background-color: var(--secondary-background);
   padding: 3em;
   border-radius: 1em;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, calc(-50% + 20px));
-  visibility: hidden;
-  opacity: 0;
-  transition: all .25s;
   overflow-y: auto;
 }
 
-@media (prefers-color-scheme: light) {
-  .contact-form-container {
-    background-color: #a2a2b1aa;
+.contact-form-container[open] {
+  animation: modal-animation .25s;
+}
+
+@keyframes modal-animation {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
   }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-form-container::backdrop {
+  background-color: #222d;
 }
 
 .contact-form-container input {
   box-sizing: border-box;
   width: 100%;
 }
-
-.contact-form-container.open {
-  visibility: visible;
-  opacity: 100%;
-  transform: translate(-50%, -50%);
-}
-
 
 .contact-header-wrapper {
   display: flex;
@@ -316,5 +327,5 @@ tbody>tr:hover .contact-options {
 
 .current {
   cursor: auto;
-  background-color: #535bf288;
+  background-color: var(--secondary-accent-half);
 }
