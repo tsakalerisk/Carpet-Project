@@ -5,11 +5,25 @@ services:
     build:
       context: ./frontend
     container_name: frontend
+    restart: always
     ports:
       - "3000:80"
-  #   depends_on:
-  #     - backend
-  # backend:
+    depends_on:
+      - backend
+  backend:
+    image: carpet-backend:latest
+    build:
+      context: ./backend
+    container_name: backend
+    restart: always
+    volumes:
+      - ~/.m2:/root/.m2
+    env_file:
+      - .env
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
   db:
     image: carpet-db:latest
     build:
@@ -17,8 +31,10 @@ services:
     container_name: db
     env_file:
       - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
     ports:
-      - "3306:3306" #remove later, only backend will have access
+      - "3306:3306"
   adminer:
     image: adminer:latest
     container_name: adminer

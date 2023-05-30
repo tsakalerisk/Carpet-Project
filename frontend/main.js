@@ -33,7 +33,7 @@ let loadFilters = () => {
 loadFilters()
 
 let getData = async () => {
-    let response = await fetch('./MOCK_DATA.json')
+    let response = await fetch('http://localhost:5000/contacts')
     data = (await response.json()).filter(contact =>
         Object.keys(filters).every(key =>
             contact[key].toLowerCase().startsWith(filters[key].toLowerCase())
@@ -48,22 +48,22 @@ getData()
 let updateTable = data => {
     let table = document.querySelector('#contacts')
     table.innerHTML = data
-        .sort((a, b) => (a.first_name > b.first_name ? 1 : -1))
-        .slice(
-            (current_page - 1) * CONTACTS_PER_PAGE,
-            current_page * CONTACTS_PER_PAGE
-        )
+        // .sort((a, b) => (a.first_name > b.first_name ? 1 : -1))
+        // .slice(
+        //     (current_page - 1) * CONTACTS_PER_PAGE,
+        //     current_page * CONTACTS_PER_PAGE
+        // )
         .map(
             x => `
         <tr>
-            <td>${x.first_name}</td>
-            <td>${x.last_name}</td>
-            <td>${x.street_address}</td>
-            <td>${x.city}</td>
-            <td>${x.state}</td>
-            <td>${x.zip_code}</td>
-            <td>${x.phone_number}</td>
-            <td>${x.email}</td>
+            <td>${x.firstName}</td>
+            <td>${x.lastName}</td>
+            <td>${x.streetAddress}</td>
+            <td>${x.cityName}</td>
+            <td>${x.stateName}</td>
+            <td>${x.zipCode}</td>
+            <td>${x.phoneNumber}</td>
+            <td>${x.emailAddress}</td>
             <td class="contact-options">
                 <button class="edit opens-form" onclick="showUpdateForm(${x.id})">
                     <span class="material-symbols-outlined">edit_square</span>
