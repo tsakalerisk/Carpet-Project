@@ -65,6 +65,11 @@ public class ContactsController {
 
     }
 
+    @GetMapping(value = "/pages")
+    public Integer getPagesNumber(@RequestParam("size") Integer size) {
+        return (int) Math.ceil(contactsRepository.count() / (double) size);
+    }
+
     @PostMapping(produces = "application/json")
     public ResponseEntity<String> addContact(@RequestBody FullContact contact, UriComponentsBuilder ucb) {
         Optional<City> city = citiesRepository.findByCityName(contact.cityName());
