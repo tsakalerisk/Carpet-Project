@@ -6,6 +6,8 @@ services:
       context: ./frontend
     container_name: frontend
     restart: always
+    volumes:
+      - ./frontend:/usr/local/apache2/htdocs/
     ports:
       - "3000:80"
     depends_on:

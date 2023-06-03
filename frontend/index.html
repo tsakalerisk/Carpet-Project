@@ -1,111 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Carpet Project</title>
+        <link rel="stylesheet" href="style.css" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+        />
+    </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carpet Project</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-</head>
-
-<body>
-  <div class="app">
-    <a class="logo" href="index.html">
-      <h1>
-        Carpet Project
-        <img height="60" src="logo.svg">
-      </h1>
-    </a>
-    <div class="filter-container">
-      <form action="." class="filter-form">
-        <select name="filter_key" required>
-          <option value="" disabled selected>Choose one</option>
-          <option value="first_name">First name</option>
-          <option value="last_name">Last name</option>
-          <option value="street_address">Street address</option>
-          <option value="city">City</option>
-          <option value="state">State</option>
-          <option value="zip_code">ZIP code</option>
-          <option value="phone_number">Phone number<optionh>
-          <option value="email">Email</option>
-        </select>
-        <input class="filter-input" type="search" placeholder="Type here to filter..." name="filter_value" required>
-        <button type="submit" class="icon-container">
-          <span class="material-symbols-outlined">
-            add_circle
-          </span>
-          Add filter
-        </button>
-      </form>
-      <div class="filters"></div>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>First name</th>
-          <th>Last name</th>
-          <th>Street address</th>
-          <th>City</th>
-          <th>State</th>
-          <th>ZIP code</th>
-          <th>Phone number</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody id="contacts"></tbody>
-    </table>
-    <button id="new_contact" class="button icon-container opens-form" onclick="showNewForm()">
-      <span class="material-symbols-outlined">add</span>
-      New contact
-    </button>
-    <dialog class="contact-form-container open">
-      <div class="contact-header-wrapper icon-container">
-        <span id="close-button" class="material-symbols-outlined" onclick="hideUpdateForm()">
-          close
-        </span>
-        <h2 class="contact-header"></h2>
-      </div>
-      <form action="" method="post" class="contact-form">
-        <div>
-          <label for="first_name">First name</label>
-          <input type="text" name="first_name" id="first_name" required>
+    <body>
+        <div class="app">
+            <a class="logo" href="index.html">
+                <h1>
+                    Carpet Project
+                    <img height="60" src="logo.svg" />
+                </h1>
+            </a>
+            <div class="filter-container">
+                <form action="." class="filter-form">
+                    <select name="filter_key" required>
+                        <option value="" disabled selected>Choose one</option>
+                        <option value="first_name">First name</option>
+                        <option value="last_name">Last name</option>
+                        <option value="street_address">Street address</option>
+                        <option value="city">City</option>
+                        <option value="state">State</option>
+                        <option value="zip_code">ZIP code</option>
+                        <option value="phone_number">Phone number</option>
+                        <option value="email">Email</option>
+                    </select>
+                    <input
+                        class="filter-input"
+                        type="search"
+                        placeholder="Type here to filter..."
+                        name="filter_value"
+                        required
+                    />
+                    <button type="submit" class="icon-container">
+                        <span class="material-symbols-outlined">
+                            add_circle
+                        </span>
+                        Add filter
+                    </button>
+                </form>
+                <div class="filters"></div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Street address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>ZIP code</th>
+                        <th>Phone number</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody id="contacts"></tbody>
+            </table>
+            <button
+                id="new_contact"
+                class="button icon-container opens-form"
+                onclick="showNewForm()"
+            >
+                <span class="material-symbols-outlined">add</span>
+                New contact
+            </button>
+            <dialog class="contact-form-container open">
+                <div class="contact-header-wrapper icon-container">
+                    <span
+                        id="close-button"
+                        class="material-symbols-outlined"
+                        onclick="hideUpdateForm()"
+                    >
+                        close
+                    </span>
+                    <h2 class="contact-header"></h2>
+                </div>
+                <form method="dialog" class="contact-form">
+                    <input type="text" name="contactId" id="contactId" hidden />
+                    <div>
+                        <label for="first_name">First name</label>
+                        <input
+                            type="text"
+                            name="firstName"
+                            id="firstName"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label for="last_name">Last name</label>
+                        <input
+                            type="text"
+                            name="lastName"
+                            id="lastName"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label for="street_address">Address</label>
+                        <input
+                            type="text"
+                            name="streetAddress"
+                            id="streetAddress"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label for="zip_code">ZIP code</label>
+                        <input
+                            type="text"
+                            name="zipCode"
+                            id="zipCode"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label for="city">City</label>
+                        <input
+                            type="text"
+                            name="cityName"
+                            id="cityName"
+                            list="cities"
+                            required
+                        />
+                        <datalist id="cities" style="display: none;"></datalist>
+                    </div>
+                    <div>
+                        <label for="state">State</label>
+                        <select
+                            type="text"
+                            name="stateName"
+                            id="stateName"
+                            required
+                        ></select>
+                    </div>
+                    <div>
+                        <label for="phone_number">Phone number</label>
+                        <input
+                            type="tel"
+                            name="phoneNumber"
+                            id="phoneNumber"
+                            pattern="[0-9]{3}-?[0-9]{3}-?[0-9]{4}"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input
+                            type="email"
+                            name="emailAddress"
+                            id="emailAddress"
+                            required
+                        />
+                    </div>
+                    <input type="submit" value="Update contact" />
+                </form>
+            </dialog>
+            <div class="paging"></div>
         </div>
-        <div>
-          <label for="last_name">Last name</label>
-          <input type="text" name="last_name" id="last_name" required>
-        </div>
-        <div>
-          <label for="street_address">Address</label>
-          <input type="text" name="street_address" id="street_address" required>
-        </div>
-        <div>
-          <label for="city">City</label>
-          <input type="text" name="city" id="city" required>
-        </div>
-        <div>
-          <label for="state">State</label>
-          <input type="text" name="state" id="state" required>
-        </div>
-        <div>
-          <label for="zip_code">ZIP code</label>
-          <input type="text" name="zip_code" id="zip_code" required>
-        </div>
-        <div>
-          <label for="phone_number">Phone number</label>
-          <input type="tel" name="phone_number" id="phone_number" pattern="[0-9]{3}-?[0-9]{3}-?[0-9]{4}" required>
-        </div>
-        <div>
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" required>
-        </div>
-        <input type="submit" value="Update contact">
-      </form>
-    </dialog>
-    <div class="paging"></div>
-  </div>
-  <script src="main.js"></script>
-</body>
-
+        <script type="module" src="main.js"></script>
+        <script type="module" src="contact_form.js"></script>
+    </body>
 </html>
