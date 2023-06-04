@@ -82,13 +82,14 @@
                     </span>
                     <h2 class="contact-header"></h2>
                 </div>
-                <form action="" method="post" class="contact-form">
+                <form method="dialog" class="contact-form">
+                    <input type="text" name="contactId" id="contactId" hidden />
                     <div>
                         <label for="first_name">First name</label>
                         <input
                             type="text"
-                            name="first_name"
-                            id="first_name"
+                            name="firstName"
+                            id="firstName"
                             required
                         />
                     </div>
@@ -96,8 +97,8 @@
                         <label for="last_name">Last name</label>
                         <input
                             type="text"
-                            name="last_name"
-                            id="last_name"
+                            name="lastName"
+                            id="lastName"
                             required
                         />
                     </div>
@@ -105,10 +106,30 @@
                         <label for="street_address">Address</label>
                         <input
                             type="text"
-                            name="street_address"
-                            id="street_address"
+                            name="streetAddress"
+                            id="streetAddress"
                             required
                         />
+                    </div>
+                    <div>
+                        <label for="zip_code">ZIP code</label>
+                        <input
+                            type="text"
+                            name="zipCode"
+                            id="zipCode"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label for="city">City</label>
+                        <input
+                            type="text"
+                            name="cityName"
+                            id="cityName"
+                            list="cities"
+                            required
+                        />
+                        <datalist id="cities" style="display: none;"></datalist>
                     </div>
                     <div>
                         <label for="state">State</label>
@@ -120,28 +141,30 @@
                         ></select>
                     </div>
                     <div>
-                        <label for="city">City</label>
-                        <input type="text" name="city" id="city" required />
-                    </div>
-                    <div>
                         <label for="phone_number">Phone number</label>
                         <input
                             type="tel"
-                            name="phone_number"
-                            id="phone_number"
+                            name="phoneNumber"
+                            id="phoneNumber"
                             pattern="[0-9]{3}-?[0-9]{3}-?[0-9]{4}"
                             required
                         />
                     </div>
                     <div>
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" required />
+                        <input
+                            type="email"
+                            name="emailAddress"
+                            id="emailAddress"
+                            required
+                        />
                     </div>
                     <input type="submit" value="Update contact" />
                 </form>
             </dialog>
             <div class="paging"></div>
         </div>
-        <script src="main.js"></script>
+        <script type="module" src="main.js"></script>
+        <script type="module" src="contact_form.js"></script>
     </body>
 </html>
