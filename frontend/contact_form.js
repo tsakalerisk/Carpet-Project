@@ -22,7 +22,8 @@ const fillCitiesAndStates = async () => {
     response = await getCities()
     let cities = await response.json()
 
-    dropdown.onchange = e => {
+    dropdown.onchange = () => {
+        document.querySelector('#cityName').value = ''
         citiesDatalist.innerHTML = getCitiesFromCurrentState(cities, states)
             .map(x => `<option>${x.cityName}</option>`)
             .join('')
