@@ -121,6 +121,15 @@
                         />
                     </div>
                     <div>
+                        <label for="stateName">State</label>
+                        <select
+                            type="text"
+                            name="stateName"
+                            id="stateName"
+                            required
+                        ></select>
+                    </div>
+                    <div>
                         <label for="cityName">City</label>
                         <input
                             type="text"
@@ -129,16 +138,7 @@
                             list="cities"
                             required
                         />
-                        <datalist id="cities" style="display: none;"></datalist>
-                    </div>
-                    <div>
-                        <label for="stateName">State</label>
-                        <select
-                            type="text"
-                            name="stateName"
-                            id="stateName"
-                            required
-                        ></select>
+                        <datalist id="cities"></datalist>
                     </div>
                     <div>
                         <label for="phoneNumber">Phone number</label>
