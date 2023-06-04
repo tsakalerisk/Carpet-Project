@@ -238,7 +238,9 @@ td:nth-child(8) {
   grid-column: 1 / -1;
 }
 
-.contact-form>div>* {
+.contact-form>div>label,
+.contact-form>div>input,
+.contact-form>div>select {
   display: block;
 }
 
@@ -345,4 +347,35 @@ tbody>tr:hover .contact-options {
 .current {
   cursor: auto;
   background-color: var(--secondary-accent-half);
+}
+
+.alert {
+  position: absolute;
+  margin-inline: auto;
+  top: 3em;
+  left: 0;
+  right: 0;
+  width: max-content;
+  font-size: 1.6rem;
+  border-radius: 16px;
+  padding: .6em 1.2em;
+  border: 1px solid;
+}
+
+.alert.success {
+  background-color: hsl(140, 55%, 48%);
+}
+
+.alert.error {
+  background-color: hsl(0, 55%, 54%);
+}
+
+@media (prefers-color-scheme: light) {
+  .alert.error {
+    background-color: hsl(0, 80%, 65%);
+  }
+
+  .alert.success {
+    background-color: hsl(140, 80%, 60%);
+  }
 }
