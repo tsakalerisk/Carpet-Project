@@ -1,20 +1,42 @@
-import { getCities, getContactById, getStates, postContact } from "./api_calls.js"
-import { getData } from "./main.js"
+import { alertError, alertSuccess } from './alerts.js'
+import {
+    getCities,
+    getContactById,
+    getStates,
+    postContact,
+} from './api_calls.js'
+import { getData } from './main.js'
 
 const formModal = document.querySelector('.contact-form-container')
 
-getStates().then(async response => {
+let dropdown = document.querySelector('#stateName')
+let citiesDatalist = document.querySelector('#cities')
+
+const fillCitiesAndStates = async () => {
+    let response = await getStates()
     let states = await response.json()
-    let dropdown = document.querySelector('#stateName')
-    dropdown.innerHTML = states.map(x => `<option>${x.stateName}</option>`).join('')
-})
+    dropdown.innerHTML += states
+        .map(x => `<option>${x.stateName}</option>`)
+        .join('')
 
-getCities().then(async response => {
+    response = await getCities()
     let cities = await response.json()
-    let datalist = document.querySelector('#cities')
-    datalist.innerHTML = cities.map(x => `<option value='${x.cityName}'></option>`).join('')
-})
 
+    dropdown.onchange = e => {
+        citiesDatalist.innerHTML = getCitiesFromCurrentState(cities, states)
+            .map(x => `<option>${x.cityName}</option>`)
+            .join('')
+    }
+}
+
+fillCitiesAndStates()
+
+const getCitiesFromCurrentState = (cities, states) => {
+    let currentStateId = states.find(
+        state => state.stateName === dropdown.value
+    ).stateId
+    return cities.filter(x => x.stateId === currentStateId)
+}
 
 const showNewForm = () => {
     formModal.querySelector('.contact-form').reset()
@@ -47,9 +69,15 @@ formModal.onclick = e => {
         formModal.close()
 }
 
-document.querySelector('.contact-form').onsubmit = e => {
+document.querySelector('.contact-form').onsubmit = async e => {
     const data = new FormData(e.target)
-    postContact(data).then(getData)
+    let response = await postContact(data)
+    if (response.status === 201) {
+        getData()
+        alertSuccess('Successfully added')
+    } else {
+        alertError(await response.text())
+    }
 }
 
 // Global scope

@@ -18,7 +18,7 @@ INSERT INTO state VALUES
     (11, 'Thessaly'),
     (12, 'Western Greece'),
     (13, 'Western Macedonia'),
-    (14, 'Monastic community of Mount Athos');
+    (14, 'Mount Athos');
 
 CREATE TABLE city (
     city_id int AUTO_INCREMENT,
