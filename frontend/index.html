@@ -127,7 +127,9 @@
                             name="stateName"
                             id="stateName"
                             required
-                        ></select>
+                        >
+                            <option disabled selected>---</option>
+                        </select>
                     </div>
                     <div>
                         <label for="cityName">City</label>
@@ -136,6 +138,7 @@
                             name="cityName"
                             id="cityName"
                             list="cities"
+                            autocomplete="off"
                             required
                         />
                         <datalist id="cities"></datalist>
@@ -159,7 +162,7 @@
                             required
                         />
                     </div>
-                    <input type="submit" value="Update contact" />
+                    <input id="contact-form-submit" type="submit" />
                 </form>
             </dialog>
             <div class="paging"></div>

@@ -9,18 +9,22 @@ import { getData } from './main.js'
 
 const formModal = document.querySelector('.contact-form-container')
 
-let dropdown = document.querySelector('#stateName')
-let citiesDatalist = document.querySelector('#cities')
+const formHeader = document.querySelector('.contact-header')
+const dropdown = document.querySelector('#stateName')
+const citiesDatalist = document.querySelector('#cities')
+const submitButton = document.querySelector('#contact-form-submit')
+let states
+let cities
 
 const fillCitiesAndStates = async () => {
     let response = await getStates()
-    let states = await response.json()
+    states = await response.json()
     dropdown.innerHTML += states
         .map(x => `<option>${x.stateName}</option>`)
         .join('')
 
     response = await getCities()
-    let cities = await response.json()
+    cities = await response.json()
 
     dropdown.onchange = () => {
         document.querySelector('#cityName').value = ''
@@ -41,7 +45,9 @@ const getCitiesFromCurrentState = (cities, states) => {
 
 const showNewForm = () => {
     formModal.querySelector('.contact-form').reset()
-    document.querySelector('.contact-header').innerHTML = 'New Contact'
+    formHeader.innerHTML = 'New Contact'
+    submitButton.value = 'Create contact'
+    citiesDatalist.innerHTML = ''
     formModal.showModal()
 }
 
@@ -53,7 +59,11 @@ const showUpdateForm = async id => {
         if (formModal.querySelector(`#${key}`))
             formModal.querySelector(`#${key}`).value = contact[key]
     })
-    document.querySelector('.contact-header').innerHTML = 'Edit Contact'
+    formHeader.innerHTML = 'Edit Contact'
+    submitButton.value = 'Update contact'
+    citiesDatalist.innerHTML = getCitiesFromCurrentState(cities, states)
+        .map(x => `<option>${x.cityName}</option>`)
+        .join('')
     formModal.showModal()
 }
 
