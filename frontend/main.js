@@ -24,8 +24,8 @@ let updateTable = data => {
             <td>${x.firstName}</td>
             <td>${x.lastName}</td>
             <td>${x.streetAddress}</td>
-            <td>${x.cityName}</td>
-            <td>${x.stateName}</td>
+            <td>${x.city.cityName}</td>
+            <td>${x.city.state.stateName}</td>
             <td>${x.zipCode}</td>
             <td>${x.phoneNumber}</td>
             <td>${x.emailAddress}</td>

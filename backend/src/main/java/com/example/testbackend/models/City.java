@@ -1,13 +1,27 @@
 package com.example.testbackend.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Data
+@Entity
 @Table(name = "city")
-public record City(
-        @Id @Column("city_id") Long cityId,
-        @Column("city_name") String cityName,
-        @Column("state_id") Long stateId) {
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class City {
+    @Id
+    @Column(name = "city_id")
+    private Integer cityId;
+    @Column(name = "city_name")
+    private String cityName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "state_id")
+    private State state;
 }

@@ -37,10 +37,10 @@ const fillCitiesAndStates = async () => {
 fillCitiesAndStates()
 
 const getCitiesFromCurrentState = (cities, states) => {
-    let currentStateId = states.find(
+    let currentState = states.find(
         state => state.stateName === dropdown.value
-    ).stateId
-    return cities.filter(x => x.stateId === currentStateId)
+    )
+    return cities.filter(x => x.state.stateId === currentState.stateId)
 }
 
 const showNewForm = () => {
@@ -59,6 +59,8 @@ const showUpdateForm = async id => {
         if (formModal.querySelector(`#${key}`))
             formModal.querySelector(`#${key}`).value = contact[key]
     })
+    formModal.querySelector('#cityName').value = contact.city.cityName
+    formModal.querySelector('#stateName').value = contact.city.state.stateName
     formHeader.innerHTML = 'Edit Contact'
     submitButton.value = 'Update contact'
     citiesDatalist.innerHTML = getCitiesFromCurrentState(cities, states)

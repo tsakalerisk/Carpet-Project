@@ -24,11 +24,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.testbackend.models.City;
 import com.example.testbackend.models.Contact;
-import com.example.testbackend.models.FullContact;
+import com.example.testbackend.models.InputContact;
 import com.example.testbackend.models.State;
 import com.example.testbackend.repositories.CitiesRepository;
 import com.example.testbackend.repositories.ContactsRepository;
-import com.example.testbackend.repositories.FullContactRepository;
 import com.example.testbackend.repositories.StatesRepository;
 
 @RestController
@@ -41,12 +40,10 @@ public class ContactsController {
     private CitiesRepository citiesRepository;
     @Autowired
     private StatesRepository statesRepository;
-    @Autowired
-    private FullContactRepository fullContactRepository;
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<FullContact>> getContacts(Pageable pageable) {
-        Page<FullContact> page = fullContactRepository.findAll(
+    public ResponseEntity<List<Contact>> getContacts(Pageable pageable) {
+        Page<Contact> page = contactsRepository.findAll(
                 PageRequest.of(
                         pageable.getPageNumber(),
                         pageable.getPageSize(),
@@ -55,8 +52,8 @@ public class ContactsController {
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<FullContact> getContactbyId(@PathVariable Long id) {
-        Optional<FullContact> contactOptional = fullContactRepository.findById(id);
+    public ResponseEntity<Contact> getContactbyId(@PathVariable Integer id) {
+        Optional<Contact> contactOptional = contactsRepository.findById(id);
         if (contactOptional.isPresent()) {
             return ResponseEntity.ok(contactOptional.get());
         } else {
@@ -70,34 +67,35 @@ public class ContactsController {
         return (int) Math.ceil(contactsRepository.count() / (double) size);
     }
 
-    @PostMapping(produces = "application/json")
-    public ResponseEntity<String> addContact(@RequestBody FullContact contact, UriComponentsBuilder ucb) {
-        Optional<City> city = citiesRepository.findByCityName(contact.cityName());
+    @PostMapping()
+    public ResponseEntity<String> addContact(@RequestBody InputContact inputContact, UriComponentsBuilder ucb) {
+        Optional<City> city = citiesRepository.findByCityName(inputContact.getCityName());
         if (!city.isPresent()) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Invalid city");
         }
-        Optional<State> state = statesRepository.findByStateName(contact.stateName());
+        Optional<State> state = statesRepository.findByStateName(inputContact.getStateName());
         if (!state.isPresent()) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Invalid state");
         }
-        if (!city.get().stateId().equals(state.get().stateId())) {
+        if (!city.get().getState().getStateId().equals(state.get().getStateId())) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("City-state mismatch");
         }
+
         Contact savedContact = contactsRepository.save(new Contact(
-                contact.contactId(),
-                contact.firstName(),
-                contact.lastName(),
-                contact.streetAddress(),
-                contact.zipCode(),
-                city.get().cityId(),
-                contact.phoneNumber(),
-                contact.emailAddress()));
-        URI location = ucb.path("/conatcts/{id}").buildAndExpand(savedContact.contactId()).toUri();
+                inputContact.getContactId(),
+                inputContact.getFirstName(),
+                inputContact.getLastName(),
+                inputContact.getStreetAddress(),
+                inputContact.getZipCode(),
+                city.get(),
+                inputContact.getPhoneNumber(),
+                inputContact.getEmailAddress()));
+        URI location = ucb.path("/contacts/{id}").buildAndExpand(savedContact.getContactId()).toUri();
         return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping()
-    public void deleteContact(@RequestParam("id") Long contactId) {
+    public void deleteContact(@RequestParam("id") Integer contactId) {
         contactsRepository.deleteById(contactId);
         ResponseEntity.ok();
     }
