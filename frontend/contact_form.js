@@ -7,7 +7,7 @@ import {
 } from './api_calls.js'
 import { getData } from './main.js'
 
-const formModal = document.querySelector('.contact-form-container')
+const formModal = document.querySelector('.contact-form-modal')
 
 const formHeader = document.querySelector('.contact-header')
 const dropdown = document.querySelector('#stateName')
@@ -37,9 +37,7 @@ const fillCitiesAndStates = async () => {
 fillCitiesAndStates()
 
 const getCitiesFromCurrentState = (cities, states) => {
-    let currentState = states.find(
-        state => state.stateName === dropdown.value
-    )
+    let currentState = states.find(state => state.stateName === dropdown.value)
     return cities.filter(x => x.state.stateId === currentState.stateId)
 }
 
@@ -72,14 +70,10 @@ const showUpdateForm = async id => {
 const hideUpdateForm = () => formModal.close()
 
 formModal.onclick = e => {
-    const dialogDim = formModal.getBoundingClientRect()
-    if (
-        e.clientX < dialogDim.left ||
-        e.clientX > dialogDim.right ||
-        e.clientY < dialogDim.top ||
-        e.clientY > dialogDim.bottom
-    )
+    // if clicked outside, the target will be the formModal backdrop, otherwise the contact-form-container
+    if (e.target === formModal) {
         formModal.close()
+    }
 }
 
 document.querySelector('.contact-form').onsubmit = async e => {
