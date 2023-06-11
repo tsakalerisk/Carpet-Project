@@ -1,10 +1,10 @@
 package com.example.testbackend.controllers;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,13 +42,40 @@ public class ContactsController {
     private StatesRepository statesRepository;
 
     @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Contact>> getContacts(Pageable pageable) {
+    public ResponseEntity<Page<Contact>> getContacts(Pageable pageable, InputContact inputContact) {
+        City city = new City();
+
+        if (inputContact.getCityName() != null) {
+            Optional<City> optionalCity = citiesRepository.findByCityName(inputContact.getCityName());
+            if (!optionalCity.isPresent())
+                return ResponseEntity.ok(Page.empty());
+            city = optionalCity.get();
+        }
+
+        if (inputContact.getStateName() != null) {
+            Optional<State> optionalState = statesRepository.findByStateName(inputContact.getStateName());
+            if (!optionalState.isPresent())
+                return ResponseEntity.ok(Page.empty());
+            city.setState(optionalState.get());
+        }
+
+        Contact exampleContact = new Contact(
+                inputContact.getContactId(),
+                inputContact.getFirstName(),
+                inputContact.getLastName(),
+                inputContact.getStreetAddress(),
+                inputContact.getZipCode(),
+                city,
+                inputContact.getPhoneNumber(),
+                inputContact.getEmailAddress());
+
         Page<Contact> page = contactsRepository.findAll(
+                Example.of(exampleContact),
                 PageRequest.of(
                         pageable.getPageNumber(),
                         pageable.getPageSize(),
                         pageable.getSortOr(Sort.by(Sort.Direction.ASC, "contactId"))));
-        return ResponseEntity.ok(page.getContent());
+        return ResponseEntity.ok(page);
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
@@ -60,11 +87,6 @@ public class ContactsController {
             return ResponseEntity.notFound().build();
         }
 
-    }
-
-    @GetMapping(value = "/pages")
-    public Integer getPagesNumber(@RequestParam("size") Integer size) {
-        return (int) Math.ceil(contactsRepository.count() / (double) size);
     }
 
     @PostMapping()

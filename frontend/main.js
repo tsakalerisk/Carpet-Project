@@ -1,16 +1,12 @@
-import { deleteContact, getContacts, postContact } from './api_calls.js'
+import { deleteContact, getContacts } from './api_calls.js'
+import { filters } from './filters.js'
 import { CONTACTS_PER_PAGE, current_page, updatePages } from './paging.js'
 
 let getData = async () => {
-    let response = await getContacts(current_page, CONTACTS_PER_PAGE)
+    let response = await getContacts(current_page, CONTACTS_PER_PAGE, filters)
     let data = await response.json()
-    //     .filter(contact =>
-    //     Object.keys(filters).every(key =>
-    //         contact[key].toLowerCase().startsWith(filters[key].toLowerCase())
-    //     )
-    // )
-    updateTable(data)
-    updatePages()
+    updateTable(data.content)
+    updatePages(data.totalPages)
 }
 
 getData()

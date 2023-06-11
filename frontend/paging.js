@@ -1,5 +1,3 @@
-import { getPages } from "./api_calls.js"
-
 const CONTACTS_PER_PAGE = 20
 const URL_PARAMS = new URLSearchParams(document.location.search)
 
@@ -10,7 +8,7 @@ const setPage = page => {
     location.href = 'http://' + location.host + '?' + URL_PARAMS
 }
 
-const updatePages = async () => {
+const updatePages = async totalPages => {
     let paging = document.querySelector('.paging')
 
     let mapToButton = x => {
@@ -22,16 +20,13 @@ const updatePages = async () => {
         return button
     }
 
-    let response = await getPages(CONTACTS_PER_PAGE)
-    let numberOfPages = parseInt(await response.text())
-
-    let pages = Array.from({ length: numberOfPages }, (_, i) => i + 1)
+    let pages = Array.from({ length: totalPages }, (_, i) => i + 1)
     paging.replaceChildren(
         ...pages
             .filter(
                 x =>
                     x === 1 ||
-                    x === numberOfPages ||
+                    x === totalPages ||
                     Math.abs(current_page + 1 - x) < 3
             )
             .flatMap((x, i, filtered_pages) =>

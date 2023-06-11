@@ -1,11 +1,13 @@
 const BACKEND = 'http://localhost:5000'
 
-const getContacts = async (page, size) =>
-    fetch(`${BACKEND}/contacts?page=${page}&size=${size}`)
+const getContacts = async (page, size, filters) => {
+    return fetch(
+        `${BACKEND}/contacts?page=${page}&size=${size}&` +
+            new URLSearchParams(filters)
+    )
+}
 
 const getContactById = async id => fetch(`${BACKEND}/contacts/${id}`)
-
-const getPages = async size => fetch(`${BACKEND}/contacts/pages?size=${size}`)
 
 const postContact = async formData =>
     fetch(`${BACKEND}/contacts`, {
@@ -27,7 +29,6 @@ const getCities = async () => fetch(`${BACKEND}/cities`)
 
 export {
     getContacts,
-    getPages,
     postContact,
     deleteContact,
     getContactById,
