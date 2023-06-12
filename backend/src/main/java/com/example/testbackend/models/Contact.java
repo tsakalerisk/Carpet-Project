@@ -33,7 +33,7 @@ public class Contact {
     @Column(name = "street_address")
     private String streetAddress;
     @Column(name = "zip_code")
-    private Integer zipCode;
+    private String zipCode;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id")
     private City city;

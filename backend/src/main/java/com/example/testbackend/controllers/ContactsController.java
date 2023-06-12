@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -44,20 +45,10 @@ public class ContactsController {
     @GetMapping(produces = "application/json")
     public ResponseEntity<Page<Contact>> getContacts(Pageable pageable, InputContact inputContact) {
         City city = new City();
-
-        if (inputContact.getCityName() != null) {
-            Optional<City> optionalCity = citiesRepository.findByCityName(inputContact.getCityName());
-            if (!optionalCity.isPresent())
-                return ResponseEntity.ok(Page.empty());
-            city = optionalCity.get();
-        }
-
-        if (inputContact.getStateName() != null) {
-            Optional<State> optionalState = statesRepository.findByStateName(inputContact.getStateName());
-            if (!optionalState.isPresent())
-                return ResponseEntity.ok(Page.empty());
-            city.setState(optionalState.get());
-        }
+        city.setCityName(inputContact.getCityName());
+        State state = new State();
+        state.setStateName(inputContact.getStateName());
+        city.setState(state);
 
         Contact exampleContact = new Contact(
                 inputContact.getContactId(),
@@ -69,8 +60,20 @@ public class ContactsController {
                 inputContact.getPhoneNumber(),
                 inputContact.getEmailAddress());
 
+        ExampleMatcher customExampleMatcher = ExampleMatcher.matching()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                .withMatcher("firstName", x -> x.startsWith().ignoreCase())
+                .withMatcher("lastName", x -> x.startsWith().ignoreCase())
+                .withMatcher("streetAddress", x -> x.contains().ignoreCase())
+                .withMatcher("zipCode", x -> x.startsWith().ignoreCase())
+                .withMatcher("city.cityName", x -> x.startsWith().ignoreCase())
+                .withMatcher("city.state.stateName", x -> x.startsWith().ignoreCase())
+                .withMatcher("phoneNumber", x -> x.contains().ignoreCase())
+                .withMatcher("emailAddress", x -> x.contains().ignoreCase());
+
         Page<Contact> page = contactsRepository.findAll(
-                Example.of(exampleContact),
+                Example.of(exampleContact, customExampleMatcher),
                 PageRequest.of(
                         pageable.getPageNumber(),
                         pageable.getPageSize(),

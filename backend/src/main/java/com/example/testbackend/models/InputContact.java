@@ -8,7 +8,7 @@ public class InputContact {
     private String firstName;
     private String lastName;
     private String streetAddress;
-    private Integer zipCode;
+    private String zipCode;
     private String cityName;
     private String stateName;
     private String phoneNumber;

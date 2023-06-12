@@ -13,7 +13,7 @@ getData()
 
 let updateTable = data => {
     let table = document.querySelector('#contacts')
-    table.innerHTML = data
+    let rows = data
         .map(
             x => `
         <tr>
@@ -37,6 +37,23 @@ let updateTable = data => {
     `
         )
         .join('')
+    table.innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Street address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>ZIP code</th>
+                    <th>Phone number</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+    `
 }
 
 let deleteContactById = id => {
