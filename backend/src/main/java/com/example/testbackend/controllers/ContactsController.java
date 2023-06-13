@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.testbackend.models.City;
@@ -96,14 +97,14 @@ public class ContactsController {
     public ResponseEntity<String> addContact(@RequestBody InputContact inputContact, UriComponentsBuilder ucb) {
         Optional<City> city = citiesRepository.findByCityName(inputContact.getCityName());
         if (!city.isPresent()) {
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Invalid city");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Invalid city");
         }
         Optional<State> state = statesRepository.findByStateName(inputContact.getStateName());
         if (!state.isPresent()) {
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Invalid state");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Invalid state");
         }
         if (!city.get().getState().getStateId().equals(state.get().getStateId())) {
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("City-state mismatch");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "City/State mismatch");
         }
 
         Contact savedContact = contactsRepository.save(new Contact(
