@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.testbackend.models.City;
@@ -45,20 +47,10 @@ public class ContactsController {
     @GetMapping(produces = "application/json")
     public ResponseEntity<Page<Contact>> getContacts(Pageable pageable, InputContact inputContact) {
         City city = new City();
-
-        if (inputContact.getCityName() != null) {
-            Optional<City> optionalCity = citiesRepository.findByCityName(inputContact.getCityName());
-            if (!optionalCity.isPresent())
-                return ResponseEntity.ok(Page.empty());
-            city = optionalCity.get();
-        }
-
-        if (inputContact.getStateName() != null) {
-            Optional<State> optionalState = statesRepository.findByStateName(inputContact.getStateName());
-            if (!optionalState.isPresent())
-                return ResponseEntity.ok(Page.empty());
-            city.setState(optionalState.get());
-        }
+        city.setCityName(inputContact.getCityName());
+        State state = new State();
+        state.setStateName(inputContact.getStateName());
+        city.setState(state);
 
         Contact exampleContact = new Contact(
                 inputContact.getContactId(),
@@ -70,8 +62,20 @@ public class ContactsController {
                 inputContact.getPhoneNumber(),
                 inputContact.getEmailAddress());
 
+        ExampleMatcher customExampleMatcher = ExampleMatcher.matching()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                .withMatcher("firstName", x -> x.startsWith().ignoreCase())
+                .withMatcher("lastName", x -> x.startsWith().ignoreCase())
+                .withMatcher("streetAddress", x -> x.contains().ignoreCase())
+                .withMatcher("zipCode", x -> x.startsWith().ignoreCase())
+                .withMatcher("city.cityName", x -> x.startsWith().ignoreCase())
+                .withMatcher("city.state.stateName", x -> x.startsWith().ignoreCase())
+                .withMatcher("phoneNumber", x -> x.contains().ignoreCase())
+                .withMatcher("emailAddress", x -> x.contains().ignoreCase());
+
         Page<Contact> page = contactsRepository.findAll(
-                Example.of(exampleContact),
+                Example.of(exampleContact, customExampleMatcher),
                 PageRequest.of(
                         pageable.getPageNumber(),
                         pageable.getPageSize(),
@@ -94,14 +98,14 @@ public class ContactsController {
     public ResponseEntity<String> addContact(@RequestBody InputContact inputContact, UriComponentsBuilder ucb) {
         Optional<City> city = citiesRepository.findByCityName(inputContact.getCityName());
         if (!city.isPresent()) {
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Invalid city");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Invalid city");
         }
         Optional<State> state = statesRepository.findByStateName(inputContact.getStateName());
         if (!state.isPresent()) {
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Invalid state");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Invalid state");
         }
         if (!city.get().getState().getStateId().equals(state.get().getStateId())) {
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("City-state mismatch");
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "City/State mismatch");
         }
 
         Contact savedContact = contactsRepository.save(new Contact(
@@ -124,12 +128,12 @@ public class ContactsController {
     }
 
     @Data
-    private class InputContact {
+    private static class InputContact {
         private Integer contactId;
         private String firstName;
         private String lastName;
         private String streetAddress;
-        private Integer zipCode;
+        private String zipCode;
         private String cityName;
         private String stateName;
         private String phoneNumber;

@@ -48,21 +48,12 @@
                 </form>
                 <div class="filters"></div>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>Street address</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>ZIP code</th>
-                        <th>Phone number</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody id="contacts"></tbody>
-            </table>
+            <div id="contacts">
+                <div class="loader">
+                    <div class="loaderBar"></div>
+                </div>
+            </div>
+            <div class="paging"></div>
             <button
                 id="new_contact"
                 class="button icon-container opens-form"
@@ -84,7 +75,12 @@
                         <h2 class="contact-header"></h2>
                     </div>
                     <form method="dialog" class="contact-form">
-                        <input type="text" name="contactId" id="contactId" hidden />
+                        <input
+                            type="text"
+                            name="contactId"
+                            id="contactId"
+                            hidden
+                        />
                         <div>
                             <label for="firstName">First name</label>
                             <input
@@ -168,7 +164,6 @@
                     </form>
                 </div>
             </dialog>
-            <div class="paging"></div>
         </div>
         <script type="module" src="main.js"></script>
         <script type="module" src="contact_form.js"></script>

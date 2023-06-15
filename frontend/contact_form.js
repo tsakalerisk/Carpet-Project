@@ -83,7 +83,8 @@ document.querySelector('.contact-form').onsubmit = async e => {
         getData()
         alertSuccess('Successfully added')
     } else {
-        alertError(await response.text())
+        let error = await response.json()
+        alertError(error.message)
     }
 }
 
