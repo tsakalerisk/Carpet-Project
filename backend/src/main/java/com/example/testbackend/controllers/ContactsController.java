@@ -24,14 +24,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.testbackend.models.City;
 import com.example.testbackend.models.Contact;
-import com.example.testbackend.models.InputContact;
 import com.example.testbackend.models.State;
 import com.example.testbackend.repositories.CitiesRepository;
 import com.example.testbackend.repositories.ContactsRepository;
 import com.example.testbackend.repositories.StatesRepository;
 
+import lombok.Data;
+
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RequestMapping("/contacts")
 public class ContactsController {
     @Autowired
@@ -120,5 +121,18 @@ public class ContactsController {
     public void deleteContact(@RequestParam("id") Integer contactId) {
         contactsRepository.deleteById(contactId);
         ResponseEntity.ok();
+    }
+
+    @Data
+    private class InputContact {
+        private Integer contactId;
+        private String firstName;
+        private String lastName;
+        private String streetAddress;
+        private Integer zipCode;
+        private String cityName;
+        private String stateName;
+        private String phoneNumber;
+        private String emailAddress;
     }
 }

@@ -11,7 +11,7 @@ import com.example.testbackend.models.State;
 import com.example.testbackend.repositories.StatesRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RequestMapping("/states")
 public class StatesController {
     @Autowired

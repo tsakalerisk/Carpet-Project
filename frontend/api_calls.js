@@ -1,4 +1,4 @@
-const BACKEND = 'http://localhost:5000'
+const BACKEND = `http://${window.location.hostname}:5000`
 
 const getContacts = async (page, size, filters) => {
     return fetch(

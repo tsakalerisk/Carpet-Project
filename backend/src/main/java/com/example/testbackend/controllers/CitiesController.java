@@ -11,7 +11,7 @@ import com.example.testbackend.models.City;
 import com.example.testbackend.repositories.CitiesRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RequestMapping("/cities")
 public class CitiesController {
     @Autowired
