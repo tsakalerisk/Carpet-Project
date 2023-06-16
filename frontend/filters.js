@@ -6,7 +6,7 @@ const FieldNames = {
     stateName: 'State',
     zipCode: 'ZIP code',
     phoneNumber: 'Phone number',
-    emailAddress: 'Email',
+    emailAddress: 'Email'
 }
 
 const URL_PARAMS = new URLSearchParams(document.location.search)
