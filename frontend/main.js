@@ -1,31 +1,27 @@
-import { deleteContact, getContacts, postContact } from './api_calls.js'
+import { deleteContact, getContacts } from './api_calls.js'
+import { filters } from './filters.js'
 import { CONTACTS_PER_PAGE, current_page, updatePages } from './paging.js'
 
 let getData = async () => {
-    let response = await getContacts(current_page, CONTACTS_PER_PAGE)
+    let response = await getContacts(current_page, CONTACTS_PER_PAGE, filters)
     let data = await response.json()
-    //     .filter(contact =>
-    //     Object.keys(filters).every(key =>
-    //         contact[key].toLowerCase().startsWith(filters[key].toLowerCase())
-    //     )
-    // )
-    updateTable(data)
-    updatePages()
+    updateTable(data.content)
+    updatePages(data.totalPages)
 }
 
 getData()
 
 let updateTable = data => {
     let table = document.querySelector('#contacts')
-    table.innerHTML = data
+    let rows = data
         .map(
             x => `
         <tr>
             <td>${x.firstName}</td>
             <td>${x.lastName}</td>
             <td>${x.streetAddress}</td>
-            <td>${x.cityName}</td>
-            <td>${x.stateName}</td>
+            <td>${x.city.cityName}</td>
+            <td>${x.city.state.stateName}</td>
             <td>${x.zipCode}</td>
             <td>${x.phoneNumber}</td>
             <td>${x.emailAddress}</td>
@@ -41,6 +37,23 @@ let updateTable = data => {
     `
         )
         .join('')
+    table.innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Street address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>ZIP code</th>
+                    <th>Phone number</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+    `
 }
 
 let deleteContactById = id => {

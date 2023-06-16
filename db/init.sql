@@ -1,6 +1,6 @@
 CREATE TABLE state (
     state_id int AUTO_INCREMENT,
-    state_name varchar(45) NOT NULL,
+    state_name varchar(255) NOT NULL,
     PRIMARY KEY (state_id)
 );
 
@@ -22,7 +22,7 @@ INSERT INTO state VALUES
 
 CREATE TABLE city (
     city_id int AUTO_INCREMENT,
-    city_name varchar(45) NOT NULL,
+    city_name varchar(255) NOT NULL,
     state_id int DEFAULT NULL,
     PRIMARY KEY (city_id),
     FOREIGN KEY (state_id) REFERENCES state (state_id)
@@ -37,13 +37,13 @@ IGNORE 1 LINES;
 
 CREATE TABLE contacts (
     contact_id int NOT NULL AUTO_INCREMENT,
-    first_name varchar(100) NOT NULL,
-    last_name varchar(100) NOT NULL,
-    street_address varchar(100) DEFAULT NULL,
+    first_name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
+    street_address varchar(255) DEFAULT NULL,
     zip_code int DEFAULT NULL,
     city_id int DEFAULT NULL,
-    phone_number varchar(11) NOT NULL,
-    email_address varchar(50) DEFAULT NULL,
+    phone_number varchar(255) NOT NULL,
+    email_address varchar(255) DEFAULT NULL,
     PRIMARY KEY (contact_id),
     FOREIGN KEY (city_id) REFERENCES city (city_id)
 );

@@ -1,17 +1,21 @@
 const FieldNames = {
-    first_name: 'First name',
-    last_name: 'Last name',
-    street_address: 'Street address',
-    city: 'City',
-    state: 'State',
-    zip_code: 'ZIP code',
-    phone_number: 'Phone number',
-    email: 'Email',
+    firstName: 'First name',
+    lastName: 'Last name',
+    streetAddress: 'Street address',
+    cityName: 'City',
+    stateName: 'State',
+    zipCode: 'ZIP code',
+    phoneNumber: 'Phone number',
+    emailAddress: 'Email'
 }
 
 const URL_PARAMS = new URLSearchParams(document.location.search)
 
-let filters = Object.fromEntries(URL_PARAMS)
+let filters = Object.fromEntries(
+    [...URL_PARAMS.entries()].filter(
+        ([key, _]) => !['page', 'size', 'sort'].includes(key)
+    )
+)
 
 let loadFilters = () => {
     let container = document.querySelector('.filters')
@@ -34,14 +38,18 @@ loadFilters()
 let filterForm = document.querySelector('.filter-form')
 filterForm.onsubmit = e => {
     e.preventDefault()
-    let newFilters = new URLSearchParams(document.location.search)
-    newFilters.set(e.target.filter_key.value, e.target.filter_value.value)
-    window.location = './?' + newFilters.toString()
+    URL_PARAMS.set('page', 0)
+    URL_PARAMS.set(e.target.filter_key.value, e.target.filter_value.value)
+    location.href = 'http://' + location.host + '?' + URL_PARAMS
 }
 
 let removeFilter = filter => {
-    let newFilters = new URLSearchParams(document.location.search)
-    newFilters.delete(filter)
-    window.location =
-        './' + (newFilters.size ? '?' + newFilters.toString() : '')
+    URL_PARAMS.set('page', 0)
+    URL_PARAMS.delete(filter)
+    location.href = 'http://' + location.host + '?' + URL_PARAMS
 }
+
+//Global scope
+window.removeFilter = removeFilter
+
+export { filters }

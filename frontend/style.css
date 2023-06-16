@@ -50,7 +50,7 @@ h1 {
   font-size: 2.8em;
   line-height: 1.1;
   text-align: center;
-  color: initial;
+  color: var(--primary-foreground);
 }
 
 #app {
@@ -268,34 +268,38 @@ tbody>tr:hover .contact-options {
   color: firebrick;
 }
 
-.contact-form-container {
+.contact-form-modal {
   box-sizing: border-box;
   min-width: max-content;
   background-color: var(--secondary-background);
-  padding: 3em;
   border-radius: 1em;
+  padding: 0;
   overflow-y: auto;
 }
 
+.contact-form-container {
+  padding: 3em;
+}
+
 @media(max-height: 900px) {
-  .contact-form-container {
+  .contact-form-modal {
     font-size: .9rem;
   }
 }
 
 @media(max-height: 800px) {
-  .contact-form-container {
+  .contact-form-modal {
     font-size: .8rem;
   }
 }
 
 @media(max-height: 700px) {
-  .contact-form-container {
+  .contact-form-modal {
     font-size: .7rem;
   }
 }
 
-.contact-form-container[open] {
+.contact-form-modal[open] {
   animation: modal-animation .25s;
 }
 
@@ -311,11 +315,11 @@ tbody>tr:hover .contact-options {
   }
 }
 
-.contact-form-container::backdrop {
+.contact-form-modal::backdrop {
   background-color: #222d;
 }
 
-.contact-form-container input {
+.contact-form-modal input {
   box-sizing: border-box;
   width: 100%;
 }
@@ -377,5 +381,50 @@ tbody>tr:hover .contact-options {
 
   .alert.success {
     background-color: hsl(140, 80%, 60%);
+  }
+}
+
+.loader {
+  width: 500px;
+  margin: 0 auto;
+  position: relative;
+  height: 5px;
+}
+
+.loader .loaderBar {
+  position: absolute;
+  border-radius: 10px;
+  top: 0;
+  right: 100%;
+  bottom: 0;
+  left: 0;
+  background: var(--primary-accent);
+  width: 0;
+  animation: borealisBar 2s linear infinite;
+}
+
+@keyframes borealisBar {
+  0% {
+    left: 0%;
+    right: 100%;
+    width: 0%;
+  }
+
+  10% {
+    left: 0%;
+    right: 75%;
+    width: 25%;
+  }
+
+  90% {
+    right: 0%;
+    left: 75%;
+    width: 25%;
+  }
+
+  100% {
+    left: 100%;
+    right: 0%;
+    width: 0%;
   }
 }
